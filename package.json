@@ -17,13 +17,8 @@
   },
   "homepage": "https://github.com/mraballard/smartboxtv-backend#readme",
   "dependencies": {
-    "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "express-xml-bodyparser": "^0.3.0",
     "mongoose": "^4.7.7",
-    "morgan": "^1.7.0",
-    "pryjs": "^1.0.3",
-    "xml-js": "^1.0.0",
     "xml2js": "^0.4.17"
   }
 }
