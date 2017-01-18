@@ -37,7 +37,7 @@ app.get('/', function(req, res) {
     // CHECK IF DATABASE IS EMPTY
       if (!err && count === 0) {
         var myObj = {};
-        // IF EMPTY, POPULATE DATABASE
+        // IF EMPTY, POPULATE DATABASE USING XML AT FOLLOWING URL
         var options = {
               hostname: "s3.amazonaws.com",
               path: '/nunchee-fxassets-local/dump.xml'
@@ -46,13 +46,13 @@ app.get('/', function(req, res) {
         http.get(options, function (response) {
             var completeResponse = '';
             response.on('data', function (chunk) {
+              // Gather XML as string
                 completeResponse += chunk;
             });
             response.on('end', function() {
-              // var result = convert.xml2json(completeResponse, {compact: true, spaces:4, fullTagEmptyElement: true});
+              // Parse XML to JSON
               parseString(completeResponse, function (err, result) {
-                // eval(pry.it);
-
+                // Create Teams from JSON data
                 result.sport.team.forEach(function(teamObj) {
                   Team.create({
                     _id: teamObj.$.id,
@@ -61,6 +61,7 @@ app.get('/', function(req, res) {
                     players: []
                   })
                   .then(function(team){
+                    // If team has players, create players and add them to Player array on Team object
                     if (teamObj.player) {
                       teamObj.player.forEach(function(playerObj) {
                         console.log("PLAYER OBJECT 1 " + playerObj.$.id);
@@ -81,11 +82,6 @@ app.get('/', function(req, res) {
                       });
                     }
                     return team;
-                  })
-                  .then(function(team) {
-                    team.players.forEach(function(player){
-                      player.team = team;
-                    });
                   })
                   .catch(function(err){
                     console.log(err);
