@@ -1,0 +1,24 @@
+{
+  "name": "smartboxtv-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mraballard/smartboxtv-backend.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mraballard/smartboxtv-backend/issues"
+  },
+  "homepage": "https://github.com/mraballard/smartboxtv-backend#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "mongoose": "^4.7.7",
+    "xml2js": "^0.4.17"
+  }
+}
