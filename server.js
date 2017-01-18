@@ -50,14 +50,49 @@ app.get('/', function(req, res) {
             });
             response.on('end', function() {
               // var result = convert.xml2json(completeResponse, {compact: true, spaces:4, fullTagEmptyElement: true});
-              // console.log(result);
               parseString(completeResponse, function (err, result) {
                 // eval(pry.it);
+
                 result.sport.team.forEach(function(teamObj) {
-                  Team.create(teamObj.$);
+                  Team.create({
+                    _id: teamObj.$.id,
+                    name: teamObj.$.name,
+                    active: teamObj.$.active,
+                    players: []
+                  })
+                  .then(function(team){
+                    if (teamObj.player) {
+                      teamObj.player.forEach(function(playerObj) {
+                        console.log("PLAYER OBJECT 1 " + playerObj.$.id);
+                        Player.create({
+                          _id: playerObj.$.id,
+                          name: playerObj.name,
+                          position: playerObj.position,
+                          team: team.id
+                        })
+                        .then(function(player){
+                          console.log("Player :" +  player);
+                          team.players.push(player);
+                          team.save();
+                        })
+                        .catch(function(err) {
+                          console.log(err);
+                        })
+                      });
+                    }
+                    return team;
+                  })
+                  .then(function(team) {
+                    team.players.forEach(function(player){
+                      player.team = team;
+                    });
+                  })
+                  .catch(function(err){
+                    console.log(err);
+                  });
                 });
               });
-            });
+            });  // Response end
           }).on('error', function (e) {
             console.log('problem with request: ' + e.message);
         });

@@ -4,11 +4,12 @@ var ObjectId = mongoose.Schema.Types.ObjectId;
 
 
 var PlayerSchema = new mongoose.Schema({
+  _id: String,
   name: String,
   position: String,
   team:
     {
-      type: ObjectId,
+      type: String,
       ref: 'Team'
     }
 });

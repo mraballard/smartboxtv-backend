@@ -3,6 +3,7 @@ var PlayerSchema = require('./player').schema;
 
 
 var TeamSchema = new mongoose.Schema({
+  _id: String,
   name: String,
   active: Boolean,
   players: [PlayerSchema]
