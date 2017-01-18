@@ -8,5 +8,4 @@ var Player      = require('../models/player');
 
 
 
-
 module.exports = router;
