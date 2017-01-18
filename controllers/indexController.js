@@ -6,7 +6,6 @@ var express     = require('express');
 var router      = express.Router();
 var Team        = require('../models/team');
 var Player      = require('../models/player');
-var server      = require('../server.js');
 
 // Root route redirects to api/teams route
 // Params: None
