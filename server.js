@@ -4,11 +4,12 @@ var bodyParser    = require('body-parser');
 var xmlParser     = require('express-xml-bodyparser');
 var mongoose      = require('mongoose');
 
+var indexController = require('./controllers/indexController.js');
 
 // app.use(bodyParser.json());  // Need this?
 // app.use(bodyParser.urlencoded({extended: false}));
 app.use(xmlParser());
-app.use(express.static('public'));
+app.use('/', indexController);
 
 
 mongoose.Promise = global.Promise;
